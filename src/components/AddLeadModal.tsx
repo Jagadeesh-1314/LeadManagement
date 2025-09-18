@@ -149,7 +149,7 @@ export const AddLeadModal: React.FC<AddLeadModalProps> = ({
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="Add New Lead" size="xl">
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-h-[70vh] overflow-y-auto pr-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-h-[70vh] overflow-y-auto p-6">
           <Input
             label="Name"
             value={formData.name}
