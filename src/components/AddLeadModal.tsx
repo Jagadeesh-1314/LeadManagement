@@ -198,6 +198,7 @@ export const AddLeadModal: React.FC<AddLeadModalProps> = ({
             label="Status"
             value={formData.status}
             onChange={(value) => updateFormData('status', value)}
+            className={errors.name ? 'border-red-500 animate-shake' : ''}
             options={statusOptions}
             required
           />
@@ -205,6 +206,7 @@ export const AddLeadModal: React.FC<AddLeadModalProps> = ({
             label="Qualification"
             value={formData.qualification}
             onChange={(value) => updateFormData('qualification', value)}
+            className={errors.name ? 'border-red-500 animate-shake' : ''}
             options={qualificationOptions}
             required
           />
@@ -212,6 +214,7 @@ export const AddLeadModal: React.FC<AddLeadModalProps> = ({
             label="Interest"
             value={formData.interest}
             onChange={(value) => updateFormData('interest', value)}
+            className={errors.name ? 'border-red-500 animate-shake' : ''}
             options={interestOptions}
             required
           />
@@ -219,6 +222,7 @@ export const AddLeadModal: React.FC<AddLeadModalProps> = ({
             label="Source"
             value={formData.source}
             onChange={(value) => updateFormData('source', value)}
+            className={errors.name ? 'border-red-500 animate-shake' : ''}
             options={sourceOptions}
             required
           />
