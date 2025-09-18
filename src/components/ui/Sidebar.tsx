@@ -1,18 +1,23 @@
-import React from 'react';
-import { LayoutDashboard, Users, Calendar, BarChart3, Package, Bell, Settings, DivideIcon as LucideIcon } from 'lucide-react';
-
-interface SidebarItem {
-  icon: LucideIcon;
-  label: string;
-  active?: boolean;
-}
+import { useState } from 'react';
+import {
+  Users,
+  BarChart3,
+  Settings,
+  Menu,
+  X,
+  Bell,
+  Calendar,
+  LayoutDashboard,
+  Package
+} from 'lucide-react';
 
 interface SidebarProps {
   activeItem: string;
   onItemClick: (item: string) => void;
 }
 
-const sidebarItems: SidebarItem[] = [
+
+const menuItems = [
   { icon: LayoutDashboard, label: 'Dashboard' },
   { icon: Users, label: 'Leads' },
   { icon: Calendar, label: 'Follow-ups' },
@@ -22,33 +27,82 @@ const sidebarItems: SidebarItem[] = [
   { icon: Settings, label: 'Settings' },
 ];
 
-export const Sidebar: React.FC<SidebarProps> = ({ activeItem, onItemClick }) => {
+export function Sidebar({ activeItem, onItemClick }: SidebarProps) {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const handleItemClick = (item: string) => {
+    onItemClick(item);
+    setIsMobileMenuOpen(false); // Close mobile menu when item is selected
+  };
+
   return (
-    <div className="w-64 bg-white border-r border-gray-200 min-h-screen">
-      <div className="p-6">
-        <h1 className="text-xl font-bold text-gray-900">CRM Dashboard</h1>
+    <>
+      {/* Mobile Menu Button */}
+      <div className="md:hidden fixed top-4 left-4 z-50">
+        <button
+          onClick={() => setIsMobileMenuOpen(true)}
+          className="p-2 bg-white rounded-lg shadow-lg border border-gray-200 hover:bg-gray-50 transition-colors"
+        >
+          <Menu className="h-6 w-6 text-gray-600" />
+        </button>
       </div>
-      <nav className="mt-6">
-        {sidebarItems.map((item) => {
-          const Icon = item.icon;
-          const isActive = item.label.toLowerCase() === activeItem.toLowerCase();
-          
-          return (
-            <button
-              key={item.label}
-              onClick={() => onItemClick(item.label.toLowerCase())}
-              className={`w-full flex items-center px-6 py-3 text-left hover:bg-gray-50 transition-colors ${
-                isActive 
-                  ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700' 
-                  : 'text-gray-700'
-              }`}
-            >
-              <Icon className="h-5 w-5 mr-3" />
-              {item.label}
-            </button>
-          );
-        })}
-      </nav>
-    </div>
+
+      {isMobileMenuOpen && (
+        <div
+          className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-40"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+
+      {/* Sidebar */}
+      <div className={`
+        fixed md:relative z-50 h-full md:h-screen
+        w-64 bg-white border-r border-gray-200 shadow-lg md:shadow-none
+        transform transition-transform duration-300 ease-in-out
+        ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+      `}>
+        {/* Mobile Close Button */}
+        <div className="md:hidden flex justify-end p-4">
+          <button
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+          >
+            <X className="h-6 w-6 text-gray-600" />
+          </button>
+        </div>
+
+        <div className="px-6 py-4 border-b border-gray-200">
+          <h2 className="text-xl font-bold text-gray-900">CRM Dashboard</h2>
+        </div>
+
+        <nav className="mt-6 px-4">
+          <ul className="space-y-2">
+            {menuItems.map((item) => {
+              const Icon = item.icon;
+              const isActive = activeItem.toLowerCase() === item.label.toLowerCase();
+
+              return (
+                <li key={item.label}>
+                  <button
+                    onClick={() => handleItemClick(item.label)}
+                    className={`
+                      w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left
+                      transition-all duration-200 group
+                      ${isActive
+                        ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                        : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                      }
+                    `}
+                  >
+                    <Icon className={`h-5 w-5 ${isActive ? 'text-blue-600' : 'text-gray-500 group-hover:text-gray-700'}`} />
+                    <span className="font-medium">{item.label}</span>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+      </div>
+    </>
   );
-};
+}
