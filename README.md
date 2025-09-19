@@ -1,69 +1,109 @@
-# React + TypeScript + Vite
+# 🧠 Lead Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack lead management system to collect, validate, and manage leads effectively. Built with **React + TypeScript** on the frontend and **Node.js + Express + MongoDB** on the backend.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- 🔒 Validated lead form with real-time feedback (phone, email, year)
+- 📱 Input fields auto-format (e.g. only numbers in phone/year)
+- ❌ Invalid fields get red borders and shake animation
+- 📍 Scrolls to first invalid field and focuses
+- 🎨 Built with custom `Input`, `Dropdown`, and `Modal` components
+- 🌐 Backend API using Express and Mongoose
+- 🧾 Auto-printed backend routes during dev
+- 💡 Lucide Icons as favicon and in UI
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🖥️ Frontend Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vitejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Lucide Icons](https://lucide.dev/)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 🔧 Setup
+
+```
+cd leadmanagement
+npm install
+npm run dev
+
+````
+
+---
+
+## 🌐 Backend Stack
+
+* [Node.js](https://nodejs.org/)
+* [Express](https://expressjs.com/)
+* [MongoDB](https://www.mongodb.com/)
+* [Mongoose](https://mongoosejs.com/)
+* [TypeScript](https://www.typescriptlang.org/)
+* [Nodemon](https://nodemon.io/)
+
+### 🔧 Setup
+
+```
+cd leadmanagement-backend
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Create a `.env` file:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```env
+PORT=5000
+MONGO_URI=mongodb://localhost:27017/leadmanagement
+```
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## 📂 Project Structure
+
+```
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── types/
+│   │   └── main.tsx
+│   └── index.html
+│
+├── backend/
+│   ├── src/
+│   │   ├── routes/
+│   │   ├── controllers/
+│   │   ├── models/
+│   │   └── utils/printRoutes.ts
+│   └── index.ts
+```
+
+---
+
+## 🧪 Validations
+
+* ✅ **Phone Number** – Must be exactly 10 digits
+* ✅ **Alternate Phone** – Optional but must be 10 digits if provided
+* ✅ **Email** – Must be valid format
+* ✅ **Passout Year** – 4-digit numeric only
+* ✅ **Required Fields** – Show errors with animation
+
+## 🧠 Developer Notes
+
+* All invalid fields scroll into view on submit and shake.
+* Backend routes are printed in console on dev start (only if routes are registered before `printRoutes(app)`).
+* Input ref management uses `useRef` with key mapping.
+* Backend is modularized (routes, controllers, models).
+
+## 🛠️ Future Improvements
+
+* ✅ Toast notifications
+* 🔐 Auth (admin login)
+* 📊 Lead analytics dashboard
+* 📨 Email/SMS integration
+
+---
 ```
